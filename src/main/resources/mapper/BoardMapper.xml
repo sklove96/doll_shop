@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ 
+<mapper namespace="org.zerock.mapper.BoardMapper">
+ 
+    <!-- 게시판 추가하기 -->
+    <!-- #{}: boardVO에서 변수 가져다 쓰는 것! -->
+    <insert id="insertBoard">
+        insert into doll_board (btitle, bcontent, bwriter, bdate) values(#{btitle},#{bcontent},#{bwriter},SYSDATE())
+    </insert>
+    
+    <!-- 게시판 리스트보기 -->
+    <select id="listBoard" resultType="org.zerock.domain.boardVO">
+    <![CDATA[
+    
+        select * from doll_board 
+        order by bno DESC
+    ]]>
+    </select>
+    
+    <!-- 게시판 상세보기 -->
+    <select id="detailBoard" resultType="org.zerock.domain.boardVO">
+            select * from doll_board where bno = #{bno}
+    </select>
+ 
+    <!-- 게시판 삭제하기 -->
+    <delete id="deleteBoard">
+        delete from doll_board where bno = #{bno}
+    </delete>
+    
+    <!-- 게시판 수정하기 -->
+    <update id="updateBoard">
+        update doll_board set btitle=#{btitle} , bcontent = #{bcontent} where bno = #{bno}
+    </update>
+ 
+</mapper>
+
